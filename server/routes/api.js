@@ -8,7 +8,7 @@ const router = express.Router();
 //const ensureAuthenticated = require('../controllers/ensureAuthenticated')
 
 router.get('/test', (req, res, next) => {
-  res.send('hello world');
+  res.send('hello API');
 });
 
 
