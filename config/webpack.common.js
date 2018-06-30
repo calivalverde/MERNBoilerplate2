@@ -11,9 +11,7 @@ const isProd = NODE_ENV === 'production';
 
 module.exports = {
   entry: {
-    'app': [
-      helpers.root('client/app/index.js')
-    ]
+    app: [helpers.root('client/app/index.js')]
   },
 
   output: {
@@ -24,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.css', '.scss', '.html'],
     alias: {
-      'app': 'client/app'
+      app: 'client/app'
     }
   },
 
@@ -46,16 +44,14 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                'sourceMap': true,
-                'importLoaders': 1
+                sourceMap: true,
+                importLoaders: 1
               }
             },
             {
               loader: 'postcss-loader',
               options: {
-                plugins: () => [
-                  autoprefixer
-                ]
+                plugins: () => [autoprefixer]
               }
             },
             'sass-loader'
@@ -84,8 +80,10 @@ module.exports = {
       disable: !isProd
     }),
 
-    new CopyWebpackPlugin([{
-      from: helpers.root('client/public')
-    }])
+    new CopyWebpackPlugin([
+      {
+        from: helpers.root('client/public')
+      }
+    ])
   ]
 };
