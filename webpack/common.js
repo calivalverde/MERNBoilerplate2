@@ -1,7 +1,6 @@
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const helpers = require('./helpers');
@@ -34,29 +33,25 @@ module.exports = {
         include: helpers.root('client'),
         loader: 'babel-loader'
       },
-
+      // Imgs files
+      {
+        test: /\.(gif|svg|jpg|png)$/,
+        loader: 'file-loader'
+      },
       // SCSS files
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-                importLoaders: 1
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: () => [autoprefixer]
-              }
-            },
-            'sass-loader'
-          ]
-        })
+        use: [
+          {
+            loader: 'style-loader' // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader' // translates CSS into CommonJS
+          },
+          {
+            loader: 'sass-loader' // compiles Sass to CSS
+          }
+        ]
       }
     ]
   },
@@ -75,9 +70,9 @@ module.exports = {
       inject: 'body'
     }),
 
-    new ExtractTextPlugin({
-      filename: 'css/[name].[hash].css',
-      disable: !isProd
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css/',
+      chunkFilename: '[id].css'
     }),
 
     new CopyWebpackPlugin([
