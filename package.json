@@ -6,8 +6,10 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "start": "webpack -p --progress --profile --colors && node server",
-    "dev": "node index.js"
+    "start": "node server",
+    "dev": "node index.js",
+    "postbuild": "webpack -p --progress --profile --colors"
+
   },
   "engines": {
     "node": "9.6.1",

@@ -6,14 +6,13 @@ nodemon({
     js: 'node'
   },
   script: path.join(__dirname, 'server/index'),
-  ignore: [],
   watch: process.env.NODE_ENV !== 'production' ? ['server/*'] : false,
   ext: 'js'
 })
-.on('restart', function() {
+.on('restart', () => {
   console.log('Server restarted!');
 })
-.once('exit', function () {
+.once('exit', () => {
   console.log('Shutting down server');
   process.exit();
 });
